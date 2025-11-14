@@ -1,0 +1,32 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+*.venv
+venv/
+env/
+.venv/
+
+# CSV / 数据文件
+data/*.csv
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# JetBrains IDE
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Playwright browsers (如果你本地安装了，镜像里不需要)
+ms-playwright/

@@ -1,0 +1,34 @@
+name: Fangdi Crawler
+
+on:
+  schedule:
+    - cron: "0 1 * * *"   # 每天 UTC 01:00（北京时间 09:00）
+  workflow_dispatch:       # 手动运行
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    # ★ 使用官方 Playwright 镜像：无需每次安装浏览器
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.45.0-focal
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Fangdi crawler
+        run: |
+          python fangdi_crawler.py
+
+      - name: Commit & Push results
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "actions@github.com"
+          git add *.csv || true
+          git commit -m "Daily update $(date +'%Y-%m-%d')" || echo "No changes"
+          git push
