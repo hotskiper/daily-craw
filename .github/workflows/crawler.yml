@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     # ★ 使用官方 Playwright 镜像：无需每次安装浏览器
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.45.0-focal
+    # container:
+    #   image: mcr.microsoft.com/playwright/python:v1.45.0-focal
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Install Python dependencies
-      #   run: |
-      #     pip install -r requirements.txt
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright asyncio
+          playwright install
 
       - name: Run Fangdi crawler
         run: |
