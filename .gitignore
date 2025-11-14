@@ -11,7 +11,7 @@ env/
 .venv/
 
 # CSV / 数据文件
-data/*.csv
+*.csv
 
 # Logs
 *.log
