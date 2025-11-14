@@ -10,7 +10,7 @@ async def human_delay(a=200, b=800):
 
 async def run():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False,
+        browser = await p.chromium.launch(headless=True,
                                           args=["--disable-blink-features=AutomationControlled"])
         context = await browser.new_context(
             viewport={"width": 1400, "height": 900},
