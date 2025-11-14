@@ -33,9 +33,18 @@ jobs:
           python fangdi_crawler.py
 
       - name: Commit & Push results
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          force: true
-          commit_message: "Daily update $(date +'%Y-%m-%d')"
+        run: |
+          # 1. 配置 Git 身份
+          git config user.name "GitHub Action"
+          git config user.email "actions@github.com"
+          
+          # 2. 添加生成的 CSV 文件到 Git 暂存区
+          # 使用 -f 是好习惯，确保即使文件已在 .gitignore 中也能添加
+          git add -f fangdi_data.csv
+          
+          # 3. 提交更改。如果发现没有变化 (No changes)，则继续执行，不报错
+          git commit -m "Daily update $(date +'%Y-%m-%d')" || echo "No changes"
+          
+          # 4. 推送更改。使用 GITHUB_TOKEN 进行身份验证，无需手动设置 URL
+          # GITHUB_TOKEN 默认拥有足够的权限
+          git push
