@@ -33,11 +33,9 @@ jobs:
           python fangdi_crawler.py
 
       - name: Commit & Push results
-        run: |
-          git config user.name "GitHub Action"
-          git config user.email "actions@github.com"
-          # 设置远程 URL 使用 PAT
-          git remote set-url origin https://${{ secrets.PAT_TOKEN }}@github.com/hotskiper/daily-craw.git
-          git add -f *.csv
-          git commit -m "Daily update $(date +'%Y-%m-%d')" || echo "No changes"
-          git push origin HEAD:main
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          commit_message: "Daily update $(date +'%Y-%m-%d')"
