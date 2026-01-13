@@ -26,7 +26,12 @@ async def run():
         # await page.mouse.move(400, 500)
         await human_delay()
 
-        await page.goto("https://www.fangdi.com.cn/old_house/old_house.html", timeout=60000)
+        # await page.goto("https://www.fangdi.com.cn/old_house/old_house.html", timeout=60000)
+        await page.goto(
+            "https://www.fangdi.com.cn/old_house/old_house.html",
+            wait_until="domcontentloaded",
+            timeout=90000
+        )
 
         # 模拟滚动
         # for _ in range(5):
@@ -51,7 +56,12 @@ async def run():
         """)
         print(data1)
 
-        await page.goto("https://www.fangdi.com.cn/index.html", timeout=60000)
+        # await page.goto("https://www.fangdi.com.cn/index.html", timeout=60000)
+        await page.goto(
+            "https://www.fangdi.com.cn/index.html",
+            wait_until="domcontentloaded",
+            timeout=90000
+        )
         await human_delay()
         # 等页面 JS 渲染完成
         await page.wait_for_selector("#all_housingSupply", timeout=60000)
